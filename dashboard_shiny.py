@@ -99,7 +99,7 @@ with ui.layout_columns(
             return (
                 df.style
                 .format(precision=2)
-                .set_table_attributes("class='dataframe table shiny-table w-auto'")
+                .set_table_attributes("class='table table-striped table-bordered table-hover table-condensed shiny-table w-auto'")
                 .set_sticky(axis='columns')
                 # .set_sticky(axis='columns')
 
@@ -116,7 +116,7 @@ with ui.layout_columns(
             return (
                 df.style
                 .format(precision=2)
-                .set_table_attributes("class='dataframe table shiny-table w-auto'")
+                .set_table_attributes("class='table table-striped table-bordered table-hover table-condensed shiny-table w-auto'")
                 .set_sticky(axis='index')
                 # .set_sticky(axis='columns')
 
