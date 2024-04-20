@@ -6,24 +6,6 @@ from shiny.express import input, render, ui
 from shinywidgets import render_widget, render_plotly
 
 df_data = create_data()
-cell_hover = {  # for row hover use <tr> instead of <td>
-    'selector': 'tr:hover',
-    'props': 'background-color: rgba(198, 198, 198, 0.18)'
-}
-# index_names = {
-#     'selector': '.index_name',
-#     'props': 'font-style: italic; background-color: rgba(0, 0, 0, 0.61); color: darkgrey; font-weight:normal;'
-# }
-# headers = {
-#     'selector': 'th:not(.index_name)',
-#     'props': 'background-color: rgba(179, 179, 179, 0.61);'
-# }
-cell_styling = [
-    {'selector': 'tbody tr:nth-child(odd)', 'props': 'background-color : rgba(230, 230, 230, 0.25)'},
-    {'selector': 'tbody tr:nth-child(even)', 'props': 'background-color : rgba(200, 200, 200, 0.25)'},
-    cell_hover
-]
-
 
 
 
@@ -116,7 +98,7 @@ with ui.layout_columns(
             return (
                 df.style
                 .format(precision=2)
-                .set_table_styles(cell_styling)
+                .set_table_attributes("class='dataframe table shiny-table w-auto'")
                 .set_sticky(axis='columns')
                 # .set_sticky(axis='columns')
 
@@ -133,7 +115,7 @@ with ui.layout_columns(
             return (
                 df.style
                 .format(precision=2)
-                .set_table_styles(cell_styling)
+                .set_table_attributes("class='dataframe table shiny-table w-auto'")
                 .set_sticky(axis='index')
                 # .set_sticky(axis='columns')
 
