@@ -4,6 +4,7 @@ import pandas as pd
 import plotly.express as px
 from shiny.express import input, render, ui
 from shinywidgets import render_widget, render_plotly
+from itables.shiny import DT
 
 df_data = create_data()
 
@@ -24,21 +25,15 @@ with ui.nav_panel("General Data"):
         with ui.nav_panel("All Data"):
             ui.markdown("This is the original data")
 
-            @render.data_frame
-            def data_ori():
-                df = df_data
-                return render.DataGrid(
-                    df, filters=True, selection_mode='rows',
-                    height = '500px'
-                )
-
-        with ui.nav_panel("Summary"):
-            ui.markdown("This is the summary of the data")
-
-            @render.data_frame
-            def data_summary():
-                df = df_data.describe()
-                return df.reset_index()
+            ui.HTML(
+                DT(
+                    df_data, showIndex=True, searching=False, autowidth=True,
+                    paging=True, scrollY=400, scrollCollapse=True,
+                    alternative_pagination='full_numbers',
+                    column_filters="footer", layout={'topEnd':'pageLength'},
+                    buttons=['csvHtml5', 'excelHtml5']
+                    )
+            )
 
 
 with ui.nav_panel("Other Analysis"):
