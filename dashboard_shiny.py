@@ -31,8 +31,9 @@ with ui.layout_columns(
         @render.data_frame
         def data_ori():
             df = df_data
-            return render.DataTable(
-                df, filters=True, selection_mode='rows'
+            return render.DataGrid(
+                df, filters=True, selection_mode='rows',
+                height = '400px'
             )
 
     with ui.card(full_screen=True):
