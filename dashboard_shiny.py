@@ -89,7 +89,7 @@ with ui.layout_columns(
 ):
 
     with ui.card(full_screen=True):
-        ui.card_header("Pivot 1")
+        ui.card_header("Pivot a")
 
         @render.table
         def pivot1b():
@@ -106,7 +106,7 @@ with ui.layout_columns(
             )
 
     with ui.card(full_screen=True):
-        ui.card_header("Pivot 2")
+        ui.card_header("Pivot b")
 
         @render.table
         def pivot2b():
