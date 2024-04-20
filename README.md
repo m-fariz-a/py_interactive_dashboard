@@ -25,6 +25,8 @@ Jika muncul url pada console, buka url tersebut untuk melihat dashboard
 streamlit run dashboard_streamlit.py
 ```
 
+[![Streamlit Preview]](videos/streamlit.mp4)
+
 * Dash
 
 ```
@@ -36,6 +38,8 @@ python dashboard_dash.py
 ```
 shiny run --reload --launch-browser dashboard_shiny.py
 ```
+
+[![Shiny Preview]](videos/shiny.mp4)
 
 * Panel
 
@@ -49,3 +53,5 @@ If you prefer developing in a Python Script using an editor, you can copy the co
 ```
 panel serve dashboard_panel.py --autoreload
 ```
+
+[![Panel Preview]](videos/panel.mp4)
