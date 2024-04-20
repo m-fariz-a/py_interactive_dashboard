@@ -9,6 +9,11 @@ Install package requirements
 pip install -r requirements.txt
 ```
 
+Untuk install ulang requirements **panel**, lakukan instalasi berikut
+```
+pip install -r requirements_panel.txt
+```
+
 
 ## How to run
 
@@ -30,4 +35,17 @@ python dashboard_dash.py
 
 ```
 shiny run --reload --launch-browser dashboard_shiny.py
+```
+
+* Panel
+
+```
+Visual Studio Code (VS Code) supports notebooks and ipywidgets, and Panel objects can be used as ipywidgets thanks to **jupyter_bokeh**, which means that you can use Panel components interactively in VS Code. Ensure you install **jupyter_bokeh** with **pip install jupyter_bokeh** or **conda install -c bokeh jupyter_bokeh** and then enable the extension with **pn.extension()**.
+```
+
+
+If you prefer developing in a Python Script using an editor, you can copy the code into a file app.py and serve it.
+
+```
+panel serve dashboard_panel.py --autoreload
 ```
