@@ -56,29 +56,29 @@ with ui.card(full_screen=True):
         fig = px.scatter(df_data, x='City', y='Age', color='Gender', title='Age vs City')
         return fig
 
-ui.markdown("### Pivot v1")
-with ui.layout_columns(
-    col_widths={"sm": (6, 6)},
-    # row_heights=(2, 2),
-    height="400px",
-    # when the column width exceeds the screen width, the column will be wrapped to the next row
-):
+# ui.markdown("### Pivot v1")
+# with ui.layout_columns(
+#     col_widths={"sm": (6, 6)},
+#     # row_heights=(2, 2),
+#     height="400px",
+#     # when the column width exceeds the screen width, the column will be wrapped to the next row
+# ):
 
-    with ui.card(full_screen=True):
-        ui.card_header("Pivot a")
+#     with ui.card(full_screen=True):
+#         ui.card_header("Pivot a")
 
-        @render.table
-        def pivot1a():
-            df = pd.pivot_table(df_data, index=['Gender', 'City'], columns='Married', values='Age', aggfunc='mean')
-            return df.reset_index()
+#         @render.table
+#         def pivot1a():
+#             df = pd.pivot_table(df_data, index=['Gender', 'City'], columns='Married', values='Age', aggfunc='mean')
+#             return df.reset_index()
 
-    with ui.card(full_screen=True):
-        ui.card_header("Pivot b")
+#     with ui.card(full_screen=True):
+#         ui.card_header("Pivot b")
 
-        @render.table
-        def pivot2a():
-            df = pd.pivot_table(df_data, index='Gender', columns=['City', 'Married'], values='Age', aggfunc='mean')
-            return df.reset_index()
+#         @render.table
+#         def pivot2a():
+#             df = pd.pivot_table(df_data, index='Gender', columns=['City', 'Married'], values='Age', aggfunc='mean')
+#             return df.reset_index()
 
 ui.markdown("### Pivot v2")
 with ui.layout_columns(
