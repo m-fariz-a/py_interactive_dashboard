@@ -8,7 +8,14 @@ from itables.shiny import DT
 
 df_data = create_data()
 
-
+index_names = {
+    'selector': '.index_name',
+    'props': 'font-style: italic; color: darkgrey; font-weight:normal;'
+}
+headers = {
+    'selector': 'th:not(.index_name)',
+    'props': 'background-color: #000066; color: white;'
+}
 
 ui.page_opts(title="Example Data Display", fillable=False)
 
@@ -34,6 +41,13 @@ with ui.nav_panel("General Data"):
                     buttons=['csvHtml5', 'excelHtml5']
                     )
             )
+
+        with ui.nav_panel("Summary"):
+            ui.markdown("This is the summary of the data")
+
+            @render.data_frame
+            def summary():
+                return df_data.describe().T
 
 
 with ui.nav_panel("Other Analysis"):
@@ -66,6 +80,7 @@ with ui.nav_panel("Pivot v2"):
                     df.style
                     .format(precision=2)
                     .set_table_attributes("class='table table-striped table-bordered table-hover table-condensed shiny-table w-auto'")
+                    # .set_table_styles([index_names, headers])
                     .set_sticky(axis='columns')
                     # .set_sticky(axis='columns')
 
@@ -83,6 +98,7 @@ with ui.nav_panel("Pivot v2"):
                     df.style
                     .format(precision=2)
                     .set_table_attributes("class='table table-striped table-bordered table-hover table-condensed shiny-table w-auto'")
+                    # .set_table_styles([index_names, headers])
                     .set_sticky(axis='index')
                     # .set_sticky(axis='columns')
 
