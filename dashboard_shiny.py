@@ -9,115 +9,86 @@ df_data = create_data()
 
 
 
-ui.page_opts(title="Example Data Display")
+ui.page_opts(title="Example Data Display", fillable=False)
 
-ui.markdown(
-    """
-    My dashboard is my creation of my art
-    """
-)
+# ui.markdown(
+#     """
+#     My dashboard is my creation of my art
+#     """
+# )
 
+with ui.nav_panel("General Data"):
 
-with ui.layout_columns(
-    col_widths={"sm": (7, 5)},
-    # row_heights=(2, 3),
-    # height="700px",
-    # when the column width exceeds the screen width, the column will be wrapped to the next row
-):
-    with ui.card(full_screen=True):
-        ui.card_header("All Data")
-        ui.markdown("This is the original data")
+    with ui.navset_card_tab():
 
-        @render.data_frame
-        def data_ori():
-            df = df_data
-            return render.DataGrid(
-                df, filters=True, selection_mode='rows',
-                height = '400px'
-            )
+        with ui.nav_panel("All Data"):
+            ui.markdown("This is the original data")
 
-    with ui.card(full_screen=True):
-        ui.card_header("Summary")
-        ui.markdown("This is the summary of the data")
+            @render.data_frame
+            def data_ori():
+                df = df_data
+                return render.DataGrid(
+                    df, filters=True, selection_mode='rows',
+                    height = '500px'
+                )
 
-        @render.data_frame
-        def data_summary():
-            df = df_data.describe()
-            return df.reset_index()
+        with ui.nav_panel("Summary"):
+            ui.markdown("This is the summary of the data")
+
+            @render.data_frame
+            def data_summary():
+                df = df_data.describe()
+                return df.reset_index()
 
 
-ui.markdown("## Other Analysis")
-
-with ui.card(full_screen=True):
-    ui.card_header("Scatter Plot of Age vs City")
-
-    @render_plotly
-    def scatter_plot():
-        fig = px.scatter(df_data, x='City', y='Age', color='Gender', title='Age vs City')
-        return fig
-
-# ui.markdown("### Pivot v1")
-# with ui.layout_columns(
-#     col_widths={"sm": (6, 6)},
-#     # row_heights=(2, 2),
-#     height="400px",
-#     # when the column width exceeds the screen width, the column will be wrapped to the next row
-# ):
-
-#     with ui.card(full_screen=True):
-#         ui.card_header("Pivot a")
-
-#         @render.table
-#         def pivot1a():
-#             df = pd.pivot_table(df_data, index=['Gender', 'City'], columns='Married', values='Age', aggfunc='mean')
-#             return df.reset_index()
-
-#     with ui.card(full_screen=True):
-#         ui.card_header("Pivot b")
-
-#         @render.table
-#         def pivot2a():
-#             df = pd.pivot_table(df_data, index='Gender', columns=['City', 'Married'], values='Age', aggfunc='mean')
-#             return df.reset_index()
-
-ui.markdown("### Pivot v2")
-with ui.layout_columns(
-    col_widths={"sm": (6, 6)},
-    # row_heights=(2, 2),
-    height="400px",
-    # when the column width exceeds the screen width, the column will be wrapped to the next row
-):
+with ui.nav_panel("Other Analysis"):
 
     with ui.card(full_screen=True):
-        ui.card_header("Pivot a")
+        ui.card_header("Scatter Plot of Age vs City")
 
-        @render.table
-        def pivot1b():
-            df = (
-                pd.pivot_table(df_data, index=['Gender', 'City'], columns='Married', values='Age', aggfunc='mean')
-            )
-            return (
-                df.style
-                .format(precision=2)
-                .set_table_attributes("class='table table-striped table-bordered table-hover table-condensed shiny-table w-auto'")
-                .set_sticky(axis='columns')
-                # .set_sticky(axis='columns')
+        @render_plotly
+        def scatter_plot():
+            fig = px.scatter(df_data, x='City', y='Age', color='Gender', title='Age vs City')
+            return fig
 
-            )
+with ui.nav_panel("Pivot v2"):
+    with ui.layout_columns(
+        col_widths={"sm": (6, 6)},
+        # row_heights=(2, 2),
+        height="500px",
+        # when the column width exceeds the screen width, the column will be wrapped to the next row
+    ):
 
-    with ui.card(full_screen=True):
-        ui.card_header("Pivot b")
+        with ui.card(full_screen=True):
+            ui.card_header("Pivot a")
 
-        @render.table
-        def pivot2b():
-            df = (
-                pd.pivot_table(df_data, index='Gender', columns=['City', 'Married'], values='Age', aggfunc='mean')
-            )
-            return (
-                df.style
-                .format(precision=2)
-                .set_table_attributes("class='table table-striped table-bordered table-hover table-condensed shiny-table w-auto'")
-                .set_sticky(axis='index')
-                # .set_sticky(axis='columns')
+            @render.table
+            def pivot1b():
+                df = (
+                    pd.pivot_table(df_data, index=['Gender', 'City'], columns='Married', values='Age', aggfunc='mean')
+                )
+                return (
+                    df.style
+                    .format(precision=2)
+                    .set_table_attributes("class='table table-striped table-bordered table-hover table-condensed shiny-table w-auto'")
+                    .set_sticky(axis='columns')
+                    # .set_sticky(axis='columns')
 
-            )
+                )
+
+        with ui.card(full_screen=True):
+            ui.card_header("Pivot b")
+
+            @render.table
+            def pivot2b():
+                df = (
+                    pd.pivot_table(df_data, index='Gender', columns=['City', 'Married'], values='Age', aggfunc='mean')
+                )
+                return (
+                    df.style
+                    .format(precision=2)
+                    .set_table_attributes("class='table table-striped table-bordered table-hover table-condensed shiny-table w-auto'")
+                    .set_sticky(axis='index')
+                    # .set_sticky(axis='columns')
+
+                )
