@@ -25,8 +25,8 @@ Jika muncul url pada console, buka url tersebut untuk melihat dashboard
 streamlit run dashboard_streamlit.py
 ```
 
-<video src="videos/streamlit.mp4" controls="controls" style="max-width: 730px;">
-</video>
+https://github.com/m-fariz-a/py_interactive_dashboard/assets/73702296/c8530968-0929-429c-b842-0e1b60b2016c
+
 
 * Dash
 
@@ -40,8 +40,8 @@ python dashboard_dash.py
 shiny run --reload --launch-browser dashboard_shiny.py
 ```
 
-<video src="videos/shiny.mp4" controls="controls" style="max-width: 730px;">
-</video>
+https://github.com/m-fariz-a/py_interactive_dashboard/assets/73702296/5143786f-1019-4480-b0d0-8b798f259196
+
 
 * Panel
 
@@ -56,5 +56,4 @@ If you prefer developing in a Python Script using an editor, you can copy the co
 panel serve dashboard_panel.py --autoreload
 ```
 
-<video src="videos/panel.mp4" controls="controls" style="max-width: 730px;">
-</video>
+https://github.com/m-fariz-a/py_interactive_dashboard/assets/73702296/93d480d1-ad79-46b2-9142-abbaafd5233a
