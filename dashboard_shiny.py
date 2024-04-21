@@ -25,7 +25,7 @@ df_data = create_data()
 
 
 
-ui.page_opts(title="Example Data Display", fillable=False)
+ui.page_opts(title="Example Data Display")
 
 # ui.markdown(
 #     """
@@ -42,11 +42,19 @@ with ui.nav_panel("General Data"):
 
             ui.HTML(
                 DT(
-                    df_data, showIndex=True, searching=False, autowidth=True,
-                    paging=True, scrollY=400, scrollCollapse=True,
+                    df_data,
+                    # showIndex=True,
+                    autoWidth=False,
+                    pageLength=10,
+                    lengthMenu = [5, 10, 20],
                     alternative_pagination='full_numbers',
-                    column_filters="footer", layout={'topEnd':'pageLength'},
-                    buttons=['csvHtml5', 'excelHtml5']
+                    searching=False, paging=True,
+                    layout={
+                        'topEnd':'pageLength'
+                        },
+                    # scrollY=400, scrollCollapse=True,
+                    column_filters="footer",
+                    buttons=['csvHtml5', 'excelHtml5'],
                     )
             )
 
@@ -117,7 +125,9 @@ with ui.nav_panel("Pivot v2"):
                     ui.HTML(
                         DT(
                             df_pivotc, info=False, searching=False, paging=False,
-                            fixedRows={'top': 2}, scrollY=True
+                            # fixedRows={'top': 2},
+                            # scrollY=True,
+                            autoWidth=False
                         )
                     )
 
@@ -131,6 +141,8 @@ with ui.nav_panel("Pivot v2"):
                     ui.HTML(
                         DT(
                             df_pivotd, info=False, searching=False, paging=False,
-                            fixedColumns={'start': 1}, scrollX=True
+                            # fixedColumns={'start': 1},
+                            # scrollX=True,
+                            autoWidth=False
                         )
                     )
