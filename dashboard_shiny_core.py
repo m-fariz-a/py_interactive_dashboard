@@ -112,13 +112,13 @@ def server(session: Session):
             DT(
                 df_data,
                 # showIndex=True,
-                autoWidth=False,
+                autoWidth=True,
                 pageLength=10,
                 lengthMenu = [5, 10, 20],
                 alternative_pagination='full_numbers',
-                searching=False, paging=True,
+                paging=True, searching=True,
                 layout={
-                    'topEnd':'pageLength'
+                    'topEnd':'pageLength',
                     },
                 # scrollY=400, scrollCollapse=True,
                 column_filters="footer",
