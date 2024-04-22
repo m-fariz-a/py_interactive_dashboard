@@ -91,8 +91,8 @@ app_ui = ui.page_navbar(
                         ui.card_header("Multiindex Column"),
                         ui.output_ui("pivot_it_mc"),
                     ),
-                    col_widths={"sm": (6, 6)},
-                    height="500px",
+                    col_widths={"sm": (5, 7)},
+                    height="600px",
                 )
             ),
         )
@@ -168,9 +168,9 @@ def server(session: Session):
         return ui.HTML(
             DT(
                 df, info=False, searching=False, paging=False,
-                # fixedRows={'top': 2},
-                # scrollY=True,
-                autoWidth=False,
+                fixHeader=True,
+                scrollY='350px',
+                autoWidth=True, scrollCollapse=True,
                 buttons=['csv', 'excel'],
             )
         )
@@ -182,8 +182,8 @@ def server(session: Session):
         return ui.HTML(
             DT(
                 df, info=False, searching=False, paging=False,
-                # fixedColumns={'start': 1},
-                # scrollX=True,
+                fixedColumns={'start': 1},
+                scrollX=True,
                 autoWidth=False,
                 buttons=['csv', 'excel'],
             )
