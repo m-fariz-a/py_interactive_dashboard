@@ -44,4 +44,4 @@ https://github.com/m-fariz-a/py_interactive_dashboard/assets/73702296/5143786f-1
 panel serve dashboard_panel.py --autoreload
 ```
 
-https://github.com/m-fariz-a/py_interactive_dashboard/assets/73702296/93d480d1-ad79-46b2-9142-abbaafd5233a
+https://github.com/m-fariz-a/py_interactive_dashboard/assets/73702296/432fde23-2816-42cc-bb06-26e671e871c2
