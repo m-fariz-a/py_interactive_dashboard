@@ -31,6 +31,17 @@ filename, button = data_responden.download_menu(
     button_kwargs={'name': 'Download table'}
 )
 
+
+font_size = "10pt"
+def magnify():
+    return [dict(selector="th",
+                 props=[("font-size", font_size)]),
+            dict(selector="td",
+                 props=[("font-size", font_size)]),
+            dict(selector="tr",
+                 props=[("font-size", font_size)])
+    ]
+
 component1 = pn.Row(
     pn.Card(
         pn.Column(
@@ -47,8 +58,8 @@ component1 = pn.Row(
     pn.layout.HSpacer(),
     pn.Card(
         pn.Column(
-            pn.pane.Markdown("Ini adalah summary data saja"),
-            pn.panel(df_data.describe()),
+            pn.pane.Str("Ini adalah summary data saja", styles={'font-size': '20pt'}),
+            pn.panel(df_data.describe().style.set_table_styles(magnify())),
             align=global_align,
         ),
         collapsible=global_collapsible,
@@ -78,6 +89,7 @@ component3 = pn.Row(
                 (
                     pd.pivot_table(df_data, index=['Gender', 'City'], columns='Married', values='Age', aggfunc='mean')
                     .style.format(precision=2)
+                    .set_table_styles(magnify())
                 )
             ),
             align=global_align,
@@ -95,6 +107,7 @@ component3 = pn.Row(
                 (
                     pd.pivot_table(df_data, index='Gender', columns=['City', 'Married'], values='Age', aggfunc='mean')
                     .style.format(precision=2)
+                    .set_table_styles(magnify())
                 )
             ),
             align=global_align,
