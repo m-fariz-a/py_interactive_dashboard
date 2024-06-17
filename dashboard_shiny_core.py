@@ -1,28 +1,8 @@
-import random
 import pandas as pd
 import plotly.express as px
 from shiny import App, render, ui, Session
 from shinywidgets import output_widget, render_widget
-from itables.shiny import DT
-
-def create_data():
-    # Define lists for generating random data
-    names = ['John', 'Alice', 'Bob', 'Emma', 'Michael', 'Sophia', 'James', 'Olivia', 'William', 'Ava']
-    genders = ['Male', 'Female']
-    cities = ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'Philadelphia', 'San Antonio', 'San Diego', 'Dallas', 'San Jose']
-
-    # Generate 100 rows of data
-    data = {
-        'Name': random.choices(names, k=100),
-        'Age': [random.randint(20, 60) for _ in range(100)],
-        'Gender': random.choices(genders, k=100),
-        'City': random.choices(cities, k=100),
-        'Salary': [random.randint(30000, 100000) for _ in range(100)],
-        'Married': random.choices(['Yes', 'No'], k=100)
-    }
-    # Convert data to DataFrame
-    df = pd.DataFrame(data)
-    return df
+from libs.create_data import create_data
 
 def pivot_data(param: str):
     if param == "multiindex_index":
@@ -45,8 +25,7 @@ app_ui = ui.page_navbar(
         ui.navset_card_tab(
             ui.nav_panel(
                 "All Data",
-                # [ui.markdown("This is the original data")],
-               ui.output_ui("general_all_data"),
+               ui.output_data_frame("general_all_data"),
             ),
             ui.nav_panel(
                 "Summary",
@@ -80,51 +59,23 @@ app_ui = ui.page_navbar(
                     height="500px",
                 )
             ),
-            ui.nav_panel(
-                "Itables Rendering",
-                ui.layout_columns(
-                    ui.card(
-                        ui.card_header("Multiindex Index"),
-                        ui.output_ui("pivot_it_mi")
-                    ),
-                    ui.card(
-                        ui.card_header("Multiindex Column"),
-                        ui.output_ui("pivot_it_mc"),
-                    ),
-                    col_widths={"sm": (5, 7)},
-                    height="600px",
-                )
-            ),
         )
     )
     ,
     title = 'Example Data Display',
     fillable=False, fillable_mobile=False,
-    fluid=False
+    fluid=True,
+    sidebar= ui.sidebar("Sidebar", bg="#f8f8f8"),
+    bg = "#990000",
+    inverse=True # bright font color
 )
 
 
 def server(session: Session):
 
-    @render.ui
+    @render.data_frame
     def general_all_data():
-        return ui.HTML(
-            DT(
-                df_data,
-                # showIndex=True,
-                autoWidth=True,
-                pageLength=10,
-                lengthMenu = [5, 10, 20],
-                alternative_pagination='full_numbers',
-                paging=True, searching=True,
-                layout={
-                    'topEnd':'pageLength',
-                    },
-                # scrollY=400, scrollCollapse=True,
-                column_filters="footer",
-                buttons=['csvHtml5', 'excelHtml5'],
-            )
-        )
+        return render.DataGrid(df_data)
 
     @render.data_frame
     def summary_data():
@@ -160,34 +111,5 @@ def server(session: Session):
             # .set_sticky(axis='columns')
 
         )
-
-    @render.ui
-    def pivot_it_mi():
-        df = pivot_data("multiindex_index")
-
-        return ui.HTML(
-            DT(
-                df, info=False, searching=False, paging=False,
-                fixHeader=True,
-                scrollY='350px',
-                autoWidth=True, scrollCollapse=True,
-                buttons=['csv', 'excel'],
-            )
-        )
-
-    @render.ui
-    def pivot_it_mc():
-        df = pivot_data("multiindex_column")
-
-        return ui.HTML(
-            DT(
-                df, info=False, searching=False, paging=False,
-                fixedColumns={'start': 1},
-                scrollX=True,
-                autoWidth=False,
-                buttons=['csv', 'excel'],
-            )
-        )
-
 
 app = App(app_ui, server, debug=False)
